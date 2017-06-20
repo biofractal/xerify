@@ -16,18 +16,37 @@ router.get('/xero/ping', (req, res) => {
 
 router.get('/xero/users', async (req, res) => {
   try {
-    const json = await xero.getUsers()
-    return res.json(json)
+    return res.json(await xero.getUsers())
   } catch(err) {
-    reportError(err, 'An error occurred fetching the xero json')
+    reportError(err, 'An error occurred fetching xero Users')
   }
 })
+
 router.get('/xero/invoices', async (req, res) => {
   try {
-    const json = await xero.getInvoices()
-    return res.json(json)
+    return res.json(await xero.getInvoices())
   } catch(err) {
-    reportError(err, 'An error occurred fetching the xero invoices')
+    reportError(err, 'An error occurred fetching xero invoices')
+  }
+})
+
+router.get('/xero/items', async (req, res) => {
+  try {
+    return res.json(await xero.getItems())
+  } catch(err) {
+    reportError(err, 'An error occurred fetching xero items')
+  }
+})
+
+router.get('/xero/contacts', async (req, res) => {
+  try {
+    if (req.query.email) {
+      return res.json(await xero.getContactByEmail(req.query.email))
+    }else {
+      return res.json(await xero.getContacts())
+    }
+  } catch(err) {
+    reportError(err, 'An error occurred fetching xero contact(s)')
   }
 })
 
