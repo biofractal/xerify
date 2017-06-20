@@ -1,13 +1,13 @@
 {
-  "name": "stack-demo-api",
-  "description": "The API component of stack-demo, an application designed to get you started with the GP stack",
-  "version": "1.0.2",
-  "author": "GoodPractice",
+  "name": "xerify",
+  "description": "A connector between various e-commerce sites and the xero accountancy service.",
+  "version": "1.0.1",
+  "author": "biofractal",
   "license": "UNLICENSED",
-  "homepage": "https://github.com/gp-technical/stack-demo-api/readme",
+  "homepage": "https://github.com/biofractal/xerify/readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gp-technical/stack-demo"
+    "url": "https://github.com/biofractal/xerify"
   },
   "main": "src/index.js",
   "scripts": {
