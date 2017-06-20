@@ -1,0 +1,36 @@
+{
+  "name": "stack-demo-api",
+  "description": "The API component of stack-demo, an application designed to get you started with the GP stack",
+  "version": "1.0.2",
+  "author": "GoodPractice",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/gp-technical/stack-demo-api/readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gp-technical/stack-demo"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "env-cmd .env babel-node src/index.js --silent",
+    "production": "babel --presets latest,stage-2 src --out-dir /build"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "le_node": "^1.7.0",
+    "winston": "^2.3.1",
+    "xero": "0.0.8"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.16.0",
+    "env-cmd": "^5.0.0",
+    "eslint": "^3.6.1",
+    "eslint-config-standard": "^6.1.0",
+    "eslint-plugin-standard": "^2.0.0"
+  }
+}
