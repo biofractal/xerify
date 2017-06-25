@@ -19,6 +19,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "le_node": "^1.7.0",
+    "moment": "^2.18.1",
     "winston": "^2.3.1",
     "xero": "0.0.8"
   },

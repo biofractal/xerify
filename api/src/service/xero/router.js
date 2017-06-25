@@ -4,50 +4,58 @@ import winston from 'winston'
 import util from 'util'
 
 const router = express.Router({mergeParams: true})
-const reportError = (inner, message) => {
+const reportError = (res, inner, message) => {
   const err = new Error(message)
   err.inner = inner
   winston.error(util.inspect(err))
+  res.sendStatus(500)
 }
 
 router.get('/xero/ping', (req, res) => {
   res.send(`The 'xero' service endpoints have been succesfully mounted : ${new Date().toLocaleString('en-GB')}`)
 })
 
-router.get('/xero/users', async (req, res) => {
+router.get('/xero/user', async (req, res) => {
   try {
     return res.json(await xero.getUsers())
   } catch(err) {
-    reportError(err, 'An error occurred fetching xero Users')
+    reportError(res, err, 'An error occurred fetching xero Users')
   }
 })
 
-router.get('/xero/invoices', async (req, res) => {
+router.get('/xero/invoice', async (req, res) => {
   try {
     return res.json(await xero.getInvoices())
   } catch(err) {
-    reportError(err, 'An error occurred fetching xero invoices')
+    reportError(res, err, 'An error occurred fetching xero invoices')
   }
 })
 
-router.get('/xero/items', async (req, res) => {
+router.get('/xero/item', async (req, res) => {
   try {
     return res.json(await xero.getItems())
   } catch(err) {
-    reportError(err, 'An error occurred fetching xero items')
+    reportError(res, err, 'An error occurred fetching xero items')
   }
 })
 
-router.get('/xero/contacts', async (req, res) => {
+router.get('/xero/contact', async (req, res) => {
   try {
-    if (req.query.email) {
-      return res.json(await xero.getContactByEmail(req.query.email))
-    }else {
-      return res.json(await xero.getContacts())
-    }
+    return res.json(await xero.getContacts())
   } catch(err) {
-    reportError(err, 'An error occurred fetching xero contact(s)')
+    reportError(res, err, 'An error occurred fetching xero contact(s)')
   }
 })
 
+router.post('/xero/invoice', async (req, res) => {
+  var {body} = req
+  console.info('body', body)
+  if (!body || !body.contact || !body.description || !body.quantity || !body.itemCode) return res.sendStatus(400)
+
+  try {
+    return res.json(await xero.postInvoice(body))
+  } catch(err) {
+    reportError(res, err, 'An error occurred while creating the new xero invoice')
+  }
+})
 export default router

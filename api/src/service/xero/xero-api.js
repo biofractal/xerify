@@ -1,5 +1,7 @@
 import { x509 } from '@gp-technical/stack-redux-api'
 import Xero from 'xero'
+import moment from 'moment'
+import util from 'util'
 
 var api = new Xero(process.env.XERO_CONSUMER_KEY, process.env.XERO_CONSUMER_SECRET, x509.formatPrivateKey(process.env.XERO_RSA_PRIVATE_KEY))
 
@@ -27,18 +29,32 @@ const getContacts = async () => {
   return get('contacts')
 }
 
-const getContactByEmail = async (email) => {
-  const where = encodeURIComponent(`EmailAddress="${email}"`)
-  return get(`contacts?where=${where}`)
-}
+const postInvoice = async ({contact, description, quantity, itemCode}) => {
 
-const postInvoice = async () => {
+  console.info('contact', contact)
+  var invoice = {
+    Type: 'ACCREC',
+    Contact: {
+      Name: contact
+    },
+    DueDate: moment().format(),
+    LineAmountTypes: 'Exclusive',
+    LineItems: [
+      {
+        Description: description,
+        Quantity: quantity,
+        ItemCode: itemCode
+      }
+    ],
+    Status: 'AUTHORISED'
+  }
   return new Promise((resolve, reject) => {
-    api.call('GET', '/items', null, function (err, json) {
+    api.call('POST', '/invoices?SummarizeErrors=false', invoice, function (err, {Response}) {
       if (err) return reject(err)
-      resolve(json)
+      console.info('json', util.inspect(Response, {depth: 6}))
+      resolve(Response.Id)
     })
   })
 }
 
-export default {getUsers, getInvoices, getItems, getContacts, getContactByEmail}
+export default {getUsers, getInvoices, getItems, getContacts, postInvoice}
