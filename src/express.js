@@ -24,10 +24,6 @@ const start = async () => {
     }, app)
 
     app.get('/', (req, res) => {
-      res.sendFile(path.resolve('index.html'))
-    })
-
-    app.get('/ping', (req, res) => {
       res.send(`The ${process.env.API_NAME} api is running : ${new Date().toLocaleString('en-GB')}`)
     })
 
