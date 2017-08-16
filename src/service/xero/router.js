@@ -49,7 +49,6 @@ router.get('/xero/contact', async (req, res) => {
 
 router.post('/xero/invoice', async (req, res) => {
   var {body} = req
-  console.info('body', body)
   if (!body || !body.contact || !body.description || !body.quantity || !body.itemCode) return res.sendStatus(400)
 
   try {

@@ -1,4 +1,4 @@
-import { x509 } from '@gp-technical/stack-redux-api'
+import { x509 } from '@gp-technical/stack-pack-util'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import winston from 'winston'

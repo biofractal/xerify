@@ -1,4 +1,4 @@
-import { x509 } from '@gp-technical/stack-redux-api'
+import { x509 } from '@gp-technical/stack-pack-util'
 import Xero from 'xero'
 import moment from 'moment'
 import util from 'util'
