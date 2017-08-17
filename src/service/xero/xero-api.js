@@ -13,6 +13,7 @@ const get = (path) => {
     })
   })
 }
+
 const getUsers = async () => {
   return get('users')
 }
@@ -25,12 +26,15 @@ const getItems = async () => {
   return get('items')
 }
 
+const getItem = async (itemId) => {
+  return get(`items/${itemId}`)
+}
+
 const getContacts = async () => {
   return get('contacts')
 }
 
 const postInvoice = async ({contact, description, quantity, itemCode}) => {
-
   console.info('contact', contact)
   var invoice = {
     Type: 'ACCREC',
@@ -57,4 +61,4 @@ const postInvoice = async ({contact, description, quantity, itemCode}) => {
   })
 }
 
-export default {getUsers, getInvoices, getItems, getContacts, postInvoice}
+export default {getUsers, getInvoices, getItems, getItem, getContacts, postInvoice}

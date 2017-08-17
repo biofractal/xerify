@@ -48,11 +48,14 @@ router.get('/xero/contact', async (req, res) => {
 })
 
 router.post('/xero/invoice', async (req, res) => {
-  var {body} = req
-  if (!body || !body.contact || !body.description || !body.quantity || !body.itemCode) return res.sendStatus(400)
-
   try {
-    return res.json(await xero.postInvoice(body))
+    var {body:{itemId, quantity}} = req
+    console.info('itemId', itemId)
+    if (!itemId || !quantity) return res.sendStatus(400)
+    const {Response:{Items:{Item:item}}} = await xero.getItem(itemId)
+    console.info('item', item)
+  // if (!item || !item.contact || !item.description || !item.itemCode) return res.sendStatus(400)
+  // return res.json(await xero.postInvoice({quantity, contact: item.contact, description: item.description, itemCode: item.itemCode}))
   } catch(err) {
     reportError(res, err, 'An error occurred while creating the new xero invoice')
   }
